@@ -1,0 +1,371 @@
+/* ============================================================
+   PostCard.css — Styles for individual post cards in the feed
+   ============================================================ */
+
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  animation: fadeInUp 0.35s ease both;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Subtle left accent line */
+.post-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.post-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.post-author-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.post-username {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+}
+
+.post-time {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.3px;
+}
+
+/* Delete button on post header */
+.post-delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.post-delete-btn:hover {
+  color: var(--danger);
+  background: rgba(230, 57, 70, 0.1);
+}
+
+/* ── Post Text ─────────────────────────────────────────── */
+.post-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  white-space: pre-wrap; /* Preserve line breaks from user input */
+  word-break: break-word;
+}
+
+/* ── Post Image ────────────────────────────────────────── */
+.post-image-wrapper {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+  cursor: pointer;
+  /* Fixed height in normal state */
+  max-height: 360px;
+  transition: max-height var(--transition-slow);
+}
+
+.post-image-wrapper.expanded {
+  max-height: 800px; /* Expand to show full image */
+}
+
+.post-image {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.post-image-wrapper:hover .post-image {
+  transform: scale(1.02);
+}
+
+/* Expand/collapse icon overlay */
+.post-image-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-sm);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.post-image-wrapper:hover .post-image-overlay {
+  opacity: 1;
+}
+
+/* ── Action Bar ────────────────────────────────────────── */
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border);
+}
+
+/* Like button */
+.like-btn {
+  min-width: 64px;
+}
+
+/* Like icon with pulse animation */
+.like-icon {
+  display: inline-block;
+  font-size: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.like-btn.animating .like-icon {
+  animation: pulse 0.4s ease;
+}
+
+.like-btn.active .like-icon {
+  color: var(--like-active);
+}
+
+/* Count number */
+.action-count {
+  font-weight: 600;
+  font-size: 13px;
+  min-width: 12px;
+  text-align: center;
+}
+
+/* Action label text */
+.action-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* Comment button active state */
+.comment-btn.active-comment {
+  color: var(--accent);
+}
+
+/* ── Comments Section ──────────────────────────────────── */
+.comments-section {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+  animation: fadeInUp 0.2s ease;
+}
+
+.no-comments {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: var(--space-sm) 0;
+  font-style: italic;
+}
+
+/* Comments list */
+.comments-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Individual comment */
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  animation: fadeInUp 0.2s ease;
+  position: relative;
+}
+
+.comment-body {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  min-width: 0; /* Allow shrinking */
+}
+
+.comment-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: 3px;
+}
+
+.comment-username {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.comment-time {
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.comment-text {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.comment-delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 4px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.comment-delete-btn:hover {
+  color: var(--danger);
+  background: rgba(230, 57, 70, 0.1);
+}
+
+/* ── Comment form ──────────────────────────────────────── */
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.comment-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0 4px 0 var(--space-md);
+  transition: border-color var(--transition-fast);
+}
+
+.comment-input-wrapper:focus-within {
+  border-color: var(--border-focus);
+}
+
+.comment-input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  padding: 8px 0;
+  outline: none;
+}
+
+.comment-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.comment-submit-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.comment-submit-btn:hover:not(:disabled) {
+  background: var(--accent-dim);
+  transform: scale(1.05);
+}
+
+.comment-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Login prompt inside comments */
+.login-prompt {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  padding: var(--space-sm) 0;
+}
+
+.login-prompt a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}

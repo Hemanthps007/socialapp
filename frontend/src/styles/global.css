@@ -1,0 +1,297 @@
+/**
+ * ============================================================
+ * styles/global.css — Global styles for Social Post App
+ * ------------------------------------------------------------
+ * Design language: Dark editorial — ink-black backgrounds,
+ * warm amber accents, clean geometric lines, editorial typography.
+ * Inspired by high-end magazine layouts adapted for social UI.
+ *
+ * Structure:
+ *   1. CSS Custom Properties (design tokens)
+ *   2. Reset & Base
+ *   3. Typography
+ *   4. Layout utilities
+ *   5. Animations
+ * ============================================================
+ */
+
+/* ── 1. Design Tokens ───────────────────────────────────────── */
+:root {
+  /* Color palette */
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #141414;
+  --bg-card: #1a1a1a;
+  --bg-hover: #222222;
+  --bg-input: #111111;
+
+  --accent: #f5a623;         /* Warm amber — primary interactive color */
+  --accent-dim: #c27d0e;     /* Darker amber for hover states */
+  --accent-glow: rgba(245, 166, 35, 0.15); /* Glow effect tint */
+
+  --text-primary: #f0ede8;   /* Warm white — main content */
+  --text-secondary: #8a8680; /* Muted warm gray — meta info */
+  --text-tertiary: #4a4845;  /* Very dim — dividers, placeholders */
+
+  --border: #252525;
+  --border-focus: #f5a623;
+  --border-hover: #333333;
+
+  --danger: #e63946;
+  --success: #2a9d8f;
+  --like-active: #e63946;
+
+  /* Spacing system */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+  --shadow-accent: 0 0 24px rgba(245, 166, 35, 0.2);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ── 2. Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  /* Subtle grain texture for depth */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar styling for webkit browsers */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── 3. Typography ───────────────────────────────────────────── */
+/* Import Google Fonts — loaded in index.html */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* ── 4. Layout Utilities ─────────────────────────────────────── */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+
+/* ── 5. Keyframe Animations ──────────────────────────────────── */
+
+/* Fade in from below — used for feed cards and modals */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in — used for overlays and notifications */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Pulse — used for like button animation */
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Slide in from right — used for toasts */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* Shimmer — used for skeleton loading placeholders */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Spin — used for loading spinners */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 6. Common Shared Component Styles ───────────────────────── */
+
+/* Avatar circle — used in PostCard, CommentItem, Navbar */
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.avatar-circle.sm {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.avatar-circle.lg {
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+}
+
+/* Skeleton placeholder for loading state */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Toast notification container */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  color: var(--text-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  animation: slideInRight 0.3s ease;
+  box-shadow: var(--shadow-md);
+  max-width: 300px;
+}
+
+.toast.error {
+  border-left-color: var(--danger);
+}
+
+/* Divider line */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-md) 0;
+}
+
+/* Icon button base */
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.icon-btn.active {
+  color: var(--like-active);
+}
+
+.icon-btn.active:hover {
+  color: #c0202d;
+}

@@ -1,0 +1,229 @@
+/* ============================================================
+   CreatePost.css — Post creation form styles
+   ============================================================ */
+
+.create-post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.create-post-card:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-accent);
+}
+
+/* ── Top row: avatar + textarea ──────────────────────────── */
+.create-post-top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.create-post-right {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.create-post-textarea {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  padding: 4px 0;
+  min-height: 72px;
+}
+
+.create-post-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* Character counter ring */
+.char-counter-wrapper {
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.char-ring {
+  display: block;
+}
+
+.char-remaining {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.char-remaining.warn {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ── Image preview ───────────────────────────────────────── */
+.image-preview-wrapper {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+  max-height: 300px;
+}
+
+.image-preview {
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px;
+  display: block;
+}
+
+.image-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.image-remove-btn:hover {
+  background: var(--danger);
+}
+
+/* ── Drag & Drop zone ────────────────────────────────────── */
+.drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  user-select: none;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.drop-zone-icon {
+  font-size: 18px;
+}
+
+.drop-zone-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.drop-zone.drag-over .drop-zone-text {
+  color: var(--accent);
+}
+
+/* ── Error ───────────────────────────────────────────────── */
+.create-post-error {
+  font-size: 13px;
+  color: var(--danger);
+  margin-bottom: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(230, 57, 70, 0.08);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--danger);
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.create-post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+}
+
+.attach-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.attach-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.attach-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 22px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
+  letter-spacing: 0.3px;
+  min-width: 100px;
+}
+
+.submit-post-btn:hover:not(:disabled) {
+  background: var(--accent-dim);
+  transform: translateY(-1px);
+}
+
+.submit-post-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Inline spinner inside submit button */
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
